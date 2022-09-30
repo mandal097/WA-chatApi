@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./src/config/dbConn')
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -26,8 +27,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api', baseRouter);
-app.use('/api/test', testRoute);
+app.use('/', baseRouter);
+app.use('/test', testRoute);
 
 
 
