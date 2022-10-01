@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const User = require('../../../../models/User');
 const HashService = require('../../../../services/hash-service');
+const OtpService = require('../../../../services/otp-service');
 const TokenService = require('../../../../services/token-service');
 
 
 const hash = new HashService();
 const token = new TokenService();
-
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -31,8 +31,7 @@ router.post('/login', async (req, res) => {
                     message: 'Wrong credentials'
                 });
             } else {
-
-                const access_token = token.generateToken({ _id: user.id, email })
+                const access_token = token.generateToken({ id: user.id, email })
                 const { password, ...others } = user._doc;
                 res.status(201).json({
                     status: 'success',

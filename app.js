@@ -32,6 +32,7 @@ app.use('/test', testRoute);
 
 
 
+
 app.get('/api', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'amar.html'))
 });
