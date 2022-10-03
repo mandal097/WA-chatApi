@@ -19,14 +19,14 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            res.status(401).json({
+            res.json({
                 status: 'err',
                 message: 'User not found '
             })
         } else {
             const isValid = hash.verifyPassword(req.body.password, user.password);
             if (!isValid) {
-                res.status(401).json({
+                res.json({
                     status: 'err',
                     message: 'Wrong credentials'
                 });

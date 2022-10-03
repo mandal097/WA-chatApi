@@ -8,8 +8,8 @@ const token = new TokenService();
 
 
 router.post('/registration', async (req, res) => {
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { name, email, phone, password } = req.body;
+    if (!name || !email || !phone || !password) {
         res.status(404).json({
             status: 'err',
             message: 'All fields are required'
@@ -18,7 +18,7 @@ router.post('/registration', async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (user) {
-            res.status(401).json({
+            res.json({
                 status: 'err',
                 message: 'User already exists'
             })
@@ -26,14 +26,15 @@ router.post('/registration', async (req, res) => {
             const newUser = new User({
                 name,
                 email,
+                phone,
                 password: hash.hashPassword(password)
             })
             const savedUser = await newUser.save();
-            const access_token = token.generateToken({ _id: savedUser._id, email})
+            const access_token = token.generateToken({ _id: savedUser._id, email })
             res.status(201).json({
                 status: 'success',
                 message: 'Registered successfully',
-                token:access_token,
+                token: access_token,
                 data: savedUser
             })
         }
