@@ -6,6 +6,7 @@ const login = require('./auth/login');
 const loginGoogle = require('./auth/google');
 const getProfile = require('./getProfile');
 const getAllProfile = require('./getAlluser');
+const searchUser = require('./searchUser');
 const updateProfile = require('./updateProfile');
 const updatePassword = require('./updatePassword');
 
@@ -17,6 +18,7 @@ router.use('/user/update-password', updatePassword)    //password reset or forgo
 
 router.use('/user', auth, getAllProfile)    //get all user profiles
 router.use('/user', auth, getProfile)    //get user profile by id
+router.use('/user', auth, searchUser)    //search user profiles
 router.use('/user/update-profile', auth, updateProfile)    //update user profile 
 
 module.exports = router;
