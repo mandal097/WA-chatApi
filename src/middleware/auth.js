@@ -6,7 +6,7 @@ const auth = (req, res, next) => {
         const token = authHeader.split(" ")[1]
         jwt.verify(token, process.env.JWT_SECRET_KEY, (error, payload) => {
             if (error) {
-                res.status(403).json({
+                return res.json({
                     'status': 'err',
                     'message': 'Token Mismatched'
                 })
@@ -16,7 +16,7 @@ const auth = (req, res, next) => {
 
         });
     } else {
-        res.status(403).json({
+        return res.json({
             'status': 'err',
             'message': 'Header Token Missing'
         })

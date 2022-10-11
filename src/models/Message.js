@@ -5,13 +5,13 @@ const messageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
+    chatId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chat",
+    },
     content: {
         type: String,
         trim: true
-    },
-    chat: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Chat",
     },
 },
     { timestamps: true }

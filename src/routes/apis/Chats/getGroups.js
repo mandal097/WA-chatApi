@@ -3,11 +3,11 @@ const User = require('../../../models/User');
 
 const router = require('express').Router();
 
-router.get('/get-chats', async (req, res) => {
+router.get('/get-groups', async (req, res) => {
     try {
         const chats = await Chat.find({
             users: { $elemMatch: { $eq: req.payload.id } },
-            isGroupChat: false
+            isGroupChat: true
         })
             .populate('users', '-password')
             .populate('groupAdmin', '-password')

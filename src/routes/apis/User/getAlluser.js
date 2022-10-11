@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 router.get('/get-all-users', async (req, res) => {
     try {
-        const users = await User.find().select('-password');
+        const users = await User.find({ _id: { $nin: [req.payload.id] } }).select('-password');
         res.status(200).json({
             status: 'success',
             data: users

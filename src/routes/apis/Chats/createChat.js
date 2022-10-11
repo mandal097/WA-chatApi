@@ -20,7 +20,10 @@ router.post('/create-chat', async (req, res) => {
         select: 'name profilePic email'
     })
     if (isChat.length > 0) {
-        res.json(isChat[0]);
+        res.json({
+            status: 'err',
+            message: 'chat is already existed',
+        });
     } else {
         let chatData = {
             chatName: 'sender',

@@ -3,7 +3,7 @@ const Chat = require('../../../models/Chat')
 const User = require('../../../models/User')
 
 router.post('/create-group', async (req, res) => {
-    const { users, name } = req.body;
+    const { users, name, groupAvatar } = req.body;
     if (!users || !name) {
         return res.status(400).send({
             status: 'err',
@@ -30,6 +30,7 @@ router.post('/create-group', async (req, res) => {
             chatName: req.body.name,
             users: users,
             isGroupChat: true,
+            groupAvatar:groupAvatar,
             groupAdmin: req.payload.id,
         });
 
@@ -38,9 +39,9 @@ router.post('/create-group', async (req, res) => {
         //     .populate("groupAdmin", "-password");
 
         res.status(200).json({
-            status:'success',
-            message:'Successfully created',
-            data:groupChat
+            status: 'success',
+            message: 'Successfully created',
+            data: groupChat
         });
     } catch (error) {
         res.json({
