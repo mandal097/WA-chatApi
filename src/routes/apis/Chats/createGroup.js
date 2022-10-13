@@ -22,7 +22,6 @@ router.post('/create-group', async (req, res) => {
 
     // users.push(req.payload);
     users.push(req.payload.id);
-    console.log(users);
 
 
     try {
