@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Chat = require('../../../models/Chat');
 
-
+// for groups
 router.delete('/delete/:chatId', async (req, res) => {
     const { chatId } = req.params;
     const userId = req.payload.id

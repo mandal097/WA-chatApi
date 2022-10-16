@@ -11,7 +11,6 @@ router.post('/create-group', async (req, res) => {
         });
     }
 
-    //   var users = JSON.parse(req.body.users);
 
     if (users.length < 2) {
         return res.status(400).send({
@@ -20,7 +19,6 @@ router.post('/create-group', async (req, res) => {
         });
     }
 
-    // users.push(req.payload);
     users.push(req.payload.id);
 
 
@@ -33,9 +31,6 @@ router.post('/create-group', async (req, res) => {
             groupAdmin: req.payload.id,
         });
 
-        // const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
-        //     .populate("users", "-password")
-        //     .populate("groupAdmin", "-password");
 
         res.status(200).json({
             status: 'success',
