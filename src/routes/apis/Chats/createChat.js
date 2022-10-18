@@ -21,8 +21,10 @@ router.post('/create-chat', async (req, res) => {
     })
     if (isChat.length > 0) {
         res.json({
-            status: 'err',
+            status: 'success',
+            existed: true,
             message: 'chat is already existed',
+            data: isChat
         });
     } else {
         let chatData = {
@@ -39,6 +41,7 @@ router.post('/create-chat', async (req, res) => {
             );
             res.json({
                 status: 'success',
+                existed: false,
                 message: 'Chat created',
                 data: fullChat
             })

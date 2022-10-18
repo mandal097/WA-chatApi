@@ -10,6 +10,8 @@ const searchUser = require('./searchUser');
 const updateProfile = require('./updateProfile');
 const updatePassword = require('./updatePassword');
 
+const connections = require('./connections');
+
 
 router.use('/user', registration)    //registering user
 router.use('/user', login)    //login user
@@ -19,6 +21,8 @@ router.use('/user/update-password', updatePassword)    //password reset or forgo
 router.use('/user', auth, getAllProfile)    //get all user profiles
 router.use('/user', auth, getProfile)    //get user profile by id
 router.use('/user', auth, searchUser)    //search user profiles
-router.use('/user/update-profile', auth, updateProfile)    //update user profile 
+router.use('/user/update-profile', auth, updateProfile)    //update user profile
+
+router.use('/user/connections', auth, connections)    //for follow and unfollow users
 
 module.exports = router;
