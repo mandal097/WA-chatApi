@@ -28,7 +28,7 @@ router.post('/create', async (req, res) => {
             });
             const savedPost = await post.save();
             return res.json({
-                status: 'err',
+                status: 'success',
                 message: 'Post successfuly created',
                 data: savedPost
             })

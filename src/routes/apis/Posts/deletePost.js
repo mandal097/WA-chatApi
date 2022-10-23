@@ -21,7 +21,7 @@ router.delete('/delete/:postId', async (req, res) => {
     try {
         await post.delete()
         return res.json({
-            status: 'err',
+            status: 'success',
             message: 'Post deleted successfully'
         })
     } catch (error) {
