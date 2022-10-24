@@ -3,21 +3,15 @@ const Comment = require('../../../models/Comment');
 const Post = require('../../../models/Post');
 
 
-router.get('/:postId', async (req, res) => {
-    const { postId } = req.params;
-    const post = await Post.findById(postId)
-    if (!post) {
-        return res.json({
-            status: 'success',
-            message: 'Post not found',
-        })
-    }
+router.get('/replies/:parentCommentId', async (req, res) => {
+    const { parentCommentId } = req.params;
+ 
     try {
         const comments = await Comment.find({
-            $and: [{ postId: postId }, { isReply: false }]
+            $and: [{ parentCommentId: parentCommentId }, { isReply: true }]
         })
-            // const comments = await Comment.find({ postId: postId },{isReply:false})
             .populate('userId', 'name profilePic')
+            .populate('repliedTo', 'name profilePic')
         if (!comments) {
             return res.json({
                 status: 'success',

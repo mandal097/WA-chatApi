@@ -18,22 +18,40 @@ const commentSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         }],
-        default:[]
-    },
-    replies: {
-        type: [{
-            repliedUserId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-            },
-            replyText: {
-                type: String,
-                required: true
-            }
-        }],
         default: []
+    },
+    parentCommentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+        required: false
+    },
+    repliedTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false
+    },
+    isReply: {
+        type: Boolean,
+        default: false
     }
-});
+    // replies: {
+    //     type: [{
+    //         repliedUserId: {
+    //             type: mongoose.Schema.Types.ObjectId,
+    //             ref: 'User',
+    //         },
+    //         replyText: {
+    //             type: String,
+    //             required: true
+    //         },
+    //         time: {
+    //             type: Date,
+    //             default: Date.now()
+    //         }
+    //     }],
+    //     default: []
+    // }
+}, { timestamps: true });
 
 const Comment = new mongoose.model("Comment", commentSchema);
 

@@ -3,7 +3,7 @@ const Comment = require('../../../models/Comment');
 const router = require('express').Router();
 
 router.post('/:postId', async (req, res) => {
-    const { commentText } = req.body;
+    const { commentText, parentCommentId, repliedTo, isReply } = req.body;
     const { postId } = req.params;
     const { id } = req.payload // loggedn in user id
     if (!commentText) {
@@ -15,15 +15,18 @@ router.post('/:postId', async (req, res) => {
     try {
         const comment = new Comment({
             postId,
-            userId:id,
-            commentText
+            userId: id,
+            commentText,
+            parentCommentId,
+            repliedTo,
+            isReply
         })
         const saveComment = await comment.save();
         console.log(comment);
         return res.json({
             status: 'success',
             message: 'Successfully commented',
-            data:saveComment
+            data: saveComment
         })
     } catch (error) {
         return res.status(500).json({
