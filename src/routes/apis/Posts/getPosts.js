@@ -34,9 +34,10 @@ router.get('/get-feed-posts', async (req, res) => {
 
 
 // getting all  posts of logged in user
-router.get('/my-posts', async (req, res) => {
+router.get('/my-posts/:userId', async (req, res) => {
+    const {userId} = req.params;
     try {
-        const post = await Post.find({ userId: req.payload.id })
+        const post = await Post.find({ userId: userId })
             .populate('userId', 'name profilePic')
             .populate('tags', 'name profilePic')
             .sort({ createdAt: -1 })

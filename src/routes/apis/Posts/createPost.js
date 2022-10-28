@@ -4,7 +4,7 @@ const Post = require('../../../models/Post');
 
 router.post('/create', async (req, res) => {
     // const userId = req.payload.id;
-    const { userId,mediaUrl, tags,text } = req.body;
+    const { userId,mediaUrl, tags,text ,mediaType} = req.body;
     if (!userId || !mediaUrl) {
         return res.json({
             status: 'err',
@@ -24,7 +24,8 @@ router.post('/create', async (req, res) => {
                 userId,
                 mediaUrl: mediaUrl,
                 text:text,
-                tags: tags
+                tags: tags,
+                mediaType
             });
             const savedPost = await post.save();
             return res.json({

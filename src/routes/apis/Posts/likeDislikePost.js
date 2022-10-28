@@ -1,33 +1,33 @@
 const router = require('express').Router();
-const Comment = require('../../../models/Comment');
+const Post = require('../../../models/Post');
 
 
-router.put('/like-dislike/:commentId', async (req, res) => {
-    const { commentId } = req.params;
+router.put('/like-dislike/:postId', async (req, res) => {
+    const { postId } = req.params;
     const { id } = req.payload;
-    const comment = await Comment.findById(commentId);
-    if (!comment) {
+    const post = await Post.findById(postId);
+    if (!post) {
         return res.json({
             status: 'success',
-            message: 'no comments',
+            message: 'no post found',
         })
     }
     try {
-        if (!comment.likes.includes(id)) {
-            await comment.updateOne({
+        if (!post.likes.includes(id)) {
+            await post.updateOne({
                 $push: { likes: id },
             }, { new: true })
             return res.json({
                 status: 'success',
-                message: 'Successfully like this comment',
+                message: 'Successfully like this post',
             })
         } else {
-            await comment.updateOne({
+            await post.updateOne({
                 $pull: { likes: id },
             }, { new: true })
             return res.json({
                 status: 'success',
-                message: 'Successfully dislike this comment',
+                message: 'Successfully dislike this post',
             })
         }
     } catch (error) {

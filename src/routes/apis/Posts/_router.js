@@ -4,12 +4,16 @@ const createPost = require('./createPost');
 const getPost = require('./getPost');
 const getPosts = require('./getPosts');
 const updatePost = require('./updatePost');
+const likeDislikePost = require('./likeDislikePost');
 const deletePost = require('./deletePost');
+
+
 
 router.use('/post', createPost); //creating post
 router.use('/post', auth, getPost); //getting a single post by postId
 router.use('/post', auth, getPosts); //getting all  posts users / random posts 
 router.use('/post', auth, updatePost); //update post by post id
+router.use('/post', auth, likeDislikePost); //like or dislike post 
 router.use('/post', auth, deletePost); //delete post by post id
 
 
