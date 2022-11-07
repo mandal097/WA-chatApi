@@ -5,8 +5,10 @@ const User = require('../../../models/User');
 // getting posts to show on feed page of the particular user
 router.get('/get-feed-posts', async (req, res) => {
     try {
+        const myId = Array(req.payload.id);
+        console.log(myId);
         const user = await User.findById(req.payload.id);
-        const followedFriends = user.followings;
+        const followedFriends = [...user.followings, ...Array(req.payload.id)]
 
         const list = await Promise.all(
             followedFriends.map(userId => {
@@ -35,7 +37,7 @@ router.get('/get-feed-posts', async (req, res) => {
 
 // getting all  posts of logged in user
 router.get('/my-posts/:userId', async (req, res) => {
-    const {userId} = req.params;
+    const { userId } = req.params;
     try {
         const post = await Post.find({ userId: userId })
             .populate('userId', 'name profilePic')

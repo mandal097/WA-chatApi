@@ -29,7 +29,7 @@ const io = require('socket.io')(server, {
 
 app.use(cors({
     credentials: true,
-    methods: ['GET', 'POST','PUT','DELETE']
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 app.use(helmet());
 app.use(morgan('dev'));
@@ -46,21 +46,48 @@ app.get('/api', (req, res) => {
 });
 
 // socket io
+let users = []
+
 const addUser = (userId, socketId) => {
     !users.some((user) => user.id === userId) &&
-        users.push({ id: userId, socketId })
+        users.push({userId: userId, socketId })
 }
 
-let users = [];
+const removeUser = (socketId) => {
+    users = users.filter(user => user.socketId !== socketId)
+}
+
+const getUser = (userId) => {
+    return users.find(user => user.userId = userId)
+}
+
+
+
 io.on('connection', (socket) => {
     console.log(`user connected with the socket id ${socket.id}`);
 
     socket.on('addUsers', (userId) => {
         addUser(userId, socket.id)
     });
+    io.emit('getUsers', users);
 
-    socket.on('sendMessage', (senderId, reciverId, data) => {
-        io.to(user.socketId)
+    // get and send message
+
+    socket.on('sendMessage', ({ sender, receiverId, content }) => {
+        const user = getUser(receiverId);
+        // console.log(user);
+        io.to(user.socketId).emit('getMessage', {
+            // io.emit('getMessage',{
+            sender: { _id: sender },
+            content
+        });
+    });
+
+    // disconnections
+    socket.on('disconnet', () => {
+        console.log('user disconnected');
+        removeUser(socket.id);
+        io.emit('getUsers', users)
     })
 
 })

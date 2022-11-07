@@ -21,7 +21,12 @@ router.post('/', async (req, res) => {
         return res.json({
             status: 'success',
             message: 'Message sent',
-            data: savedMessage
+            // data: savedMessage
+            data: {
+                sender: { _id: req.payload.id },
+                content,
+                chatId
+            }
         })
 
     } catch (error) {
