@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const useSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema({
     groupName: {
         type: String,
         required: true,
@@ -39,6 +39,6 @@ const useSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-const Group = new mongoose.model('Group', useSchema);
+const Group = new mongoose.model('Group', groupSchema);
 
 module.exports = Group;
