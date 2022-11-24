@@ -35,6 +35,9 @@ const groupSchema = new mongoose.Schema({
     desc: {
         type: String
     },
+    location: {
+        type: Object
+    },
 },
     { timestamps: true }
 );

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Group = require('../../../../models/Group');
 
-router.post('/:groupId', async (req, res) => {
+router.put('/:groupId', async (req, res) => {
     const userId = req.payload.id;
     const { groupId } = req.params;
     // const { groupName, groupCoverImg, visibility, isPrivate, desc } = req.body;
@@ -25,13 +25,12 @@ router.post('/:groupId', async (req, res) => {
 
 
     try {
-        const updateGroup = await group.updateOne({
+      await group.updateOne({
             $set: req.body
         }, { new: true })
         return res.json({
             status: 'success',
-            message: 'Group successfuly created',
-            data: updateGroup
+            message: 'Successfuly updated',
         })
     } catch (error) {
         console.log(error);
