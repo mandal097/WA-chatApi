@@ -5,6 +5,7 @@ const messageRoutes = require('./apis/messages/_router');
 const postsRoutes = require('./apis/Posts/_router');
 const commentRoutes = require('./apis/Comment/_router')
 const groupRoutes = require('./apis/Groups/_router');
+const marketPlaceRoutes = require('./apis/MarketPlace/_router');
 
 const sendOtp = require('./apis/sendOtp');
 const deleteOtp = require('./apis/deleteOtp');
@@ -16,6 +17,7 @@ router.use('/api', postsRoutes); // post routes
 router.use('/api', messageRoutes); //message routes
 router.use('/api', commentRoutes); //commenting on posts
 router.use('/api', groupRoutes); //groups routes
+router.use('/api', marketPlaceRoutes); //marketplace routes
 
 router.use('/api', sendOtp); //send otp to user to update password
 router.use('/api', deleteOtp); //delete particular users otp document from the DataBase

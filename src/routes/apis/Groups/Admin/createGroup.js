@@ -33,7 +33,6 @@ router.post('', async (req, res) => {
             message: 'Something went wrong',
         })
     }
-    // }
 })
 
 
