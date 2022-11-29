@@ -4,10 +4,12 @@ const adminRoutes = require('./Admin/_router');
 
 const getProduct = require('./getProduct.js');
 const getAllProduct = require('./getAllProducts');
+const getProductsByCat = require('./getProductsByCategory');
 
 router.use('/market-place/', auth, adminRoutes); //routes for admins who can create/delete/update products
 
 router.use('/market-place/all-products', getAllProduct) //get all products 
+router.use('/market-place/products', getProductsByCat) //get products by category...
 router.use('/market-place/product', auth, getProduct) //get product by its product Id
 
 module.exports = router;
