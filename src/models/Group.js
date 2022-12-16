@@ -24,6 +24,13 @@ const groupSchema = new mongoose.Schema({
         }],
         default: [],
     },
+    membersRequests: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        }],
+        default: [],
+    },
     visibility: {
         type: String,
         default: 'visible'

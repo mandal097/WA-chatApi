@@ -8,6 +8,7 @@ router.get('/:groupId/members', async (req, res) => {
         const groups = await Group.findOne({ _id: groupId })
         .populate('admins' ,'name profilePic')
         .populate('members' ,'name profilePic')
+        .populate('membersRequests' ,'name profilePic')
         if (!groups) {
             return res.json({
                 status: 'err',

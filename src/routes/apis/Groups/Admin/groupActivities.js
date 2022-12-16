@@ -113,7 +113,7 @@ router.put('/notes/:groupId', async (req, res) => {
         }, { new: true });
         return res.json({
             status: 'success',
-            message: 'Group activities notes added successfuly',
+            message: 'Notes added successfuly',
             data: note
         })
     } catch (error) {

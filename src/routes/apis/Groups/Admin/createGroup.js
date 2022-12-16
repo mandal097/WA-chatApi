@@ -27,7 +27,7 @@ router.post('', async (req, res) => {
             data: savedGroup
         })
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return res.status(500).json({
             status: 'err',
             message: 'Something went wrong',
