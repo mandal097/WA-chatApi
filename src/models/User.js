@@ -57,7 +57,18 @@ const useSchema = new mongoose.Schema({
     fromGoogle: {
         type: Boolean,
         default: false
-    }
+    },
+    groupInvites: [{   //contains id's of the group's 
+        role: {
+            type: String,
+            default: 'member_request'
+            // default: 'admin_request'
+        },
+        groupId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Group',
+        }
+    }],
 },
     { timestamps: true }
 );

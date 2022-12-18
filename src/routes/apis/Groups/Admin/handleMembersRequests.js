@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Group = require('../../../../models/Group');
 
-//add user to the group
+//accepting  user requests  to the group
 router.put('/confirm-r/:groupId', async (req, res) => {
     const userId = req.payload.id;
     const { groupId } = req.params;
@@ -56,7 +56,8 @@ router.put('/confirm-r/:groupId', async (req, res) => {
     // }
 })
 
-//remove user to the group
+
+//remove user from the group
 router.put('/remove-r/:groupId', async (req, res) => {
     const userId = req.payload.id;
     const { groupId } = req.params;

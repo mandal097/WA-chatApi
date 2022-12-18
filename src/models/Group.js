@@ -10,13 +10,6 @@ const groupSchema = new mongoose.Schema({
         type: String,
         default: 'https://img.freepik.com/free-vector/group-chat-concept-illustration_114360-3429.jpg?size=626&ext=jpg&ga=GA1.2.2008843824.1668494017&semt=aitest'
     },
-    members: {
-        type: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-        }],
-        default: [],
-    },
     admins: {
         type: [{
             type: mongoose.Schema.Types.ObjectId,
@@ -24,7 +17,28 @@ const groupSchema = new mongoose.Schema({
         }],
         default: [],
     },
+    adminsInvited: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        }],
+        default: [],
+    },
+    members: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        }],
+        default: [],
+    },
     membersRequests: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        }],
+        default: [],
+    },
+    membersInvited: {
         type: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',

@@ -11,7 +11,9 @@ const updateRules = require('./updateGroupRules');
 
 const activitiesRoutes = require('./groupActivities');
 
-const handleAdmins = require('./admins');
+const handleAdminInvites = require('./handleAdminInvites');
+
+const handleMembers = require('./handleMembers');
 
 const handleMembersRequested = require('./handleMembersRequests');
 
@@ -25,12 +27,13 @@ router.use('/rules', getGroupRules);  //getting group rules
 router.use('/rules', deleteRules);  //deteting group rules
 router.use('/rules/update', updateRules);  //updating group rules
 
-router.use('/admin',handleAdmins) // handling eg.,adding/removing  admins 
+router.use('/handle-admins', handleAdminInvites) // handling eg.,adding/removing  admins 
 
-router.use('/activities',activitiesRoutes) // tracking actions in the group
+router.use('/activities', activitiesRoutes) // tracking actions in the group
 
-router.use('/handle-members-request',handleMembersRequested) // handling members requests to the group
+router.use('/members', handleMembers) // handling members requests to the group
 
+router.use('/handle-members-request', handleMembersRequested) // handling members requests to the group
 
 
 
