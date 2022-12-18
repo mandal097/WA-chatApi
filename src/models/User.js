@@ -67,6 +67,10 @@ const useSchema = new mongoose.Schema({
         groupId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Group',
+        },
+        invitedBy:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'User'
         }
     }],
 },

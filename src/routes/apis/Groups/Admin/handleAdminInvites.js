@@ -55,7 +55,8 @@ router.put('/invite/:groupId', async (req, res) => {
 
     const obj = {
         role: 'admin_request',
-        groupId: groupId
+        groupId: groupId,
+        invitedBy:userId
     }
 
     try {

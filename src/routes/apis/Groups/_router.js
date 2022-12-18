@@ -9,11 +9,15 @@ const getJoinedGroups = require('./joinedGroups');
 const groupMembers = require('./groupMembers');
 
 const memberRequest = require('./sendMemberRequest');
+const getGroupRequests = require('./getGroupRequests');
+const handlingAdminInvitations = require('./handleAdminInvitations');
 
 
 
 router.use('/groups', auth, adminRoutes); //admin routes
-router.use('/groups', auth,memberRequest )  //sending request to group admin to become the member of group
+router.use('/groups', auth, memberRequest)  //sending request to group admin to become the member of group
+router.use('/groups', auth, getGroupRequests)  //getting list  all requests from groups  
+router.use('/groups', auth, handlingAdminInvitations)  //handling all requests for admin 
 
 router.use('/groups', auth, searchedGroups)  //searching group by group name
 router.use('/groups', auth, getGroup)  //getting group by id
