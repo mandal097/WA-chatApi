@@ -40,7 +40,7 @@ router.put('/:groupId/accept-member-invite', async (req, res) => {
             $pull: { groupInvites: { role: 'member_request', groupId: groupId } }
         });
         await group.updateOne({
-            $push: { admins: userId }
+            $push: { members: userId }
         });
 
         return res.json({

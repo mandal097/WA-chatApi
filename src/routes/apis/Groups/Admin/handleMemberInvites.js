@@ -66,8 +66,16 @@ router.put('/invite-member/:groupId', async (req, res) => {
         });
     };
 
-    const checkAlreadyRequested = group.membersInvited.includes(memberId)
-    if (checkAlreadyRequested) {
+    const checkUserRequested = group.membersRequests.includes(memberId)
+    if (checkUserRequested) {
+        return res.json({
+            status: 'err',
+            message: 'User already requested confirm him from member requests'
+        });
+    };
+
+    const checkAlreadyInvited = group.membersInvited.includes(memberId)
+    if (checkAlreadyInvited) {
         return res.json({
             status: 'err',
             message: 'Already invited'
@@ -124,8 +132,8 @@ router.put('/cancel-member-invite/:groupId', async (req, res) => {
         });
     };
 
-    const checkAlreadyRequested = group.membersInvited.includes(memberId)
-    if (!checkAlreadyRequested) {
+    const checkAlreadyInvited = group.membersInvited.includes(memberId)
+    if (!checkAlreadyInvited) {
         return res.json({
             status: 'err',
             message: 'User not invited'
