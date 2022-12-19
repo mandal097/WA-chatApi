@@ -4,8 +4,38 @@ const Group = require('../../../../models/Group');
 const User = require('../../../../models/User');
 
 
+//for getting list of users, who are not member of the group
+router.get('/get-list/:groupId', async (req, res) => {
+    const { groupId } = req.params;
+
+    const group = await Group.findById({ _id: groupId });
+    if (!group) {
+        return res.json({
+            status: 'err',
+            message: 'Group not found'
+        });
+    };
+
+    try {
+        const membersId = group.members;
+        const list = await User.find({ _id: { $nin: membersId } }).select('name profilePic')
+        return res.json({
+            status: 'success',
+            message: 'Successfuly fetched the list',
+            data: list
+        })
+    } catch (error) {
+        return res.status(500).json({
+            status: 'err',
+            message: 'Something went wrong',
+        })
+    }
+})
+
+
+
 //for inviting user to groups by admins
-router.put('/invite/:groupId', async (req, res) => {
+router.put('/invite-member/:groupId', async (req, res) => {
     const userId = req.payload.id;
     const { groupId } = req.params;
     const { memberId } = req.body;
@@ -29,23 +59,14 @@ router.put('/invite/:groupId', async (req, res) => {
 
     const checkIsMember = group.members.includes(memberId)  //checking the user to be invited is member of the group or not
 
-    if (!checkIsMember) {
+    if (checkIsMember) {
         return res.json({
             status: 'err',
-            message: 'Not a member of the group / may be removed from the group'
+            message: 'Already a member of this group'
         });
     };
 
-    const checkAlreadyAdmin = group.admins.includes(memberId)  //checking the user to be invited is not already a admin of the group
-
-    if (checkAlreadyAdmin) {
-        return res.json({
-            status: 'err',
-            message: 'Already a admin of the group '
-        });
-    };
-
-    const checkAlreadyRequested = group.adminsInvited.includes(memberId)
+    const checkAlreadyRequested = group.membersInvited.includes(memberId)
     if (checkAlreadyRequested) {
         return res.json({
             status: 'err',
@@ -54,14 +75,14 @@ router.put('/invite/:groupId', async (req, res) => {
     };
 
     const obj = {
-        role: 'admin_request',
+        role: 'member_request',
         groupId: groupId,
-        invitedBy:userId
+        invitedBy: userId
     }
 
     try {
         await group.updateOne({
-            $push: { adminsInvited: memberId }
+            $push: { membersInvited: memberId }
         })
         await User.findByIdAndUpdate(memberId, {
             $push: { groupInvites: obj }
@@ -81,7 +102,7 @@ router.put('/invite/:groupId', async (req, res) => {
 
 
 //cancel admin-invited  by admins
-router.put('/cancel-invite/:groupId', async (req, res) => {
+router.put('/cancel-member-invite/:groupId', async (req, res) => {
     const userId = req.payload.id;
     const { groupId } = req.params;
     const { memberId } = req.body;
@@ -103,7 +124,7 @@ router.put('/cancel-invite/:groupId', async (req, res) => {
         });
     };
 
-    const checkAlreadyRequested = group.adminsInvited.includes(memberId)
+    const checkAlreadyRequested = group.membersInvited.includes(memberId)
     if (!checkAlreadyRequested) {
         return res.json({
             status: 'err',
@@ -113,10 +134,10 @@ router.put('/cancel-invite/:groupId', async (req, res) => {
 
     try {
         await group.updateOne({
-            $pull: { adminsInvited: memberId }
+            $pull: { membersInvited: memberId }
         })
         await User.findByIdAndUpdate(memberId, {
-            $pull: { groupInvites: { role: 'admin_request', groupId: groupId } }
+            $pull: { groupInvites: { role: 'member_request', groupId: groupId } }
         })
         return res.json({
             status: 'success',
