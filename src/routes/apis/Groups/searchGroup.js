@@ -7,7 +7,8 @@ router.get('/search', async (req, res) => {
     const count = req.query.count;
     try {
         const groups = await Group.find({
-            groupName: { $regex: query, $options: '$i', }
+            groupName: { $regex: query, $options: '$i', },
+            visibility:'visible'   
         }).limit(count)
         res.json({
             status: 'success',

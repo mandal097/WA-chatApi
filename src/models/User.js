@@ -71,7 +71,11 @@ const useSchema = new mongoose.Schema({
         invitedBy:{
             type: mongoose.Schema.Types.ObjectId,
             ref:'User'
-        }
+        },
+        time:{
+            type:Date,
+            default:new Date()
+        },
     }],
 },
     { timestamps: true }
