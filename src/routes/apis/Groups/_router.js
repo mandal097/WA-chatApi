@@ -12,6 +12,7 @@ const memberRequest = require('./sendMemberRequest');
 const getGroupRequests = require('./getGroupRequests');
 const handlingAdminInvitations = require('./handleAdminInvitations');
 const handlingMembersInvitations = require('./handleMembersInvitations');
+const leaveGroup = require('./leaveGroup');
 
 
 
@@ -20,6 +21,7 @@ router.use('/groups', auth, memberRequest)  //sending request to group admin to 
 router.use('/groups', auth, getGroupRequests)  //getting list  all requests from groups  
 router.use('/groups', auth, handlingAdminInvitations)  //handling all requests for admin 
 router.use('/groups', auth, handlingMembersInvitations)  //handling all requests for members 
+router.use('/groups', auth, leaveGroup)  //leaving from group haha.
 
 router.use('/groups', auth, searchedGroups)  //searching group by group name
 router.use('/groups', auth, getGroup)  //getting group by id

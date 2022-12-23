@@ -16,7 +16,7 @@ const groupActivityLogSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    note: {// about the acitivity
+    note: {// about the activity
         type: String,
     },
 },
