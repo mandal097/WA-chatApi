@@ -18,7 +18,8 @@ const handleMembers = require('./handleMembers');
 const handleMembersRequested = require('./handleMembersRequests');
 const handleMembersInvites = require('./handleMemberInvites');
 
-const deleteGroup = require('./deleteGroup')
+const deleteGroup = require('./deleteGroup');
+const removeAdmin = require('./removeAdmin');
 
 
 router.use('/my', getMyGroups);  //getting groups created  by logged in user or is he a admin of that group
@@ -30,7 +31,9 @@ router.use('/rules', getGroupRules);  //getting group rules
 router.use('/rules', deleteRules);  //deteting group rules
 router.use('/rules/update', updateRules);  //updating group rules
 
-router.use('/handle-admins', handleAdminInvites) // for inviting group-member as admin in group and same for 
+router.use('/handle-admins', handleAdminInvites) // for inviting group-member as admin in group and same for cancelling invites
+
+router.use('/remove-admin', removeAdmin) // removing group admin by another admin
 
 router.use('/handle-members', handleMembersInvites) // for inviting users as member in group and same for removal
 
