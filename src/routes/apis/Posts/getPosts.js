@@ -82,9 +82,9 @@ router.get('/group-posts/:groupId', async (req, res) => {
         allPostIds = post.map(ele => ele._id);
         approvedPosts = allPostIds.filter(ids => !pendingPostIds.includes(ids)); //approved posts ids
 
-        console.log(allPostIds);
-        console.log(pendingPostIds);
-        console.log(approvedPosts);
+        // console.log(allPostIds);
+        // console.log(pendingPostIds);
+        // console.log(approvedPosts);
 
         const list = await Promise.all(
             approvedPosts?.map(postId => {

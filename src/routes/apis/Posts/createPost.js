@@ -72,7 +72,7 @@ router.post('/create-group-post/:groupId', async (req, res) => {
     };
 
     const isGroupMember = group.members.includes(userId); //checking for user is member of this group or not
-    const isGroupAdmin = group.members.includes(userId); //checking for user is admin
+    const isGroupAdmin = group.admins.includes(userId); //checking for user is admin
     const groupPrivacy = group.isPrivate //checkin wheather the group is private or public
 
     try {
@@ -134,7 +134,7 @@ router.post('/create-group-post/:groupId', async (req, res) => {
                 $push: { pendingPost: savedPost._id }
             })
             return res.json({
-                status: 'err',
+                status: 'success',
                 message: 'Post created successfully',
                 data: savedPost
             })
