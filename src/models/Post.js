@@ -36,7 +36,15 @@ const postSchema = new mongoose.Schema({
             ref: "User"
         }],
         default: []
-    }
+    },
+    isGroupPost: {
+        type: Boolean,
+        default: false
+    },
+    groupId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Group'
+    },
 }, { timestamps: true });
 
 const Post = new mongoose.model("Post", postSchema);

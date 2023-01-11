@@ -68,13 +68,13 @@ const useSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Group',
         },
-        invitedBy:{
+        invitedBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'User'
+            ref: 'User'
         },
-        time:{
-            type:Date,
-            default:new Date()
+        time: {
+            type: Date,
+            default: new Date()
         },
     }],
 },

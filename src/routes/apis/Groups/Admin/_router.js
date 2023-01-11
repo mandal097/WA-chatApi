@@ -21,6 +21,8 @@ const handleMembersInvites = require('./handleMemberInvites');
 const deleteGroup = require('./deleteGroup');
 const removeAdmin = require('./removeAdmin');
 
+const handlePendingPost = require('./handlePendingPost')
+
 
 router.use('/my', getMyGroups);  //getting groups created  by logged in user or is he a admin of that group
 router.use('/create', createGroup);  //creating groups
@@ -42,6 +44,8 @@ router.use('/activities', activitiesRoutes) // tracking actions in the group
 router.use('/members', handleMembers) // handling members requests to the group
 
 router.use('/handle-members-request', handleMembersRequested) // handling members requests to the group
+
+router.use('/handle-pending-post', handlePendingPost) // handling pending post
 
 router.use('/delete', deleteGroup) // deleting group
 

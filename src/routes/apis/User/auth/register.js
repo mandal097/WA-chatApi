@@ -15,32 +15,38 @@ router.post('/registration', async (req, res) => {
             message: 'All fields are required'
         })
     }
+    const user = await User.findOne({ email });
+    if (user) {
+        return res.json({
+            status: 'err',
+            message: 'User already exists'
+        })
+    }
+    const user_phone = await User.findOne({ phone });
+    if (user_phone) {
+        return res.json({
+            status: 'err',
+            message: 'User already exists'
+        })
+    }
     try {
-        const user = await User.findOne({ email });
-        if (user) {
-            res.json({
-                status: 'err',
-                message: 'User already exists'
-            })
-        } else {
-            const newUser = new User({
-                name,
-                email,
-                phone,
-                password: hash.hashPassword(password)
-            })
-            const savedUser = await newUser.save();
-            const access_token = token.generateToken({ _id: savedUser._id, email })
-            res.status(201).json({
-                status: 'success',
-                message: 'Registered successfully',
-                token: access_token,
-                data: savedUser
-            })
-        }
+        const newUser = new User({
+            name,
+            email,
+            phone,
+            password: hash.hashPassword(password)
+        })
+        const savedUser = await newUser.save();
+        const access_token = token.generateToken({ _id: savedUser._id, email })
+        return res.status(201).json({
+            status: 'success',
+            message: 'Registered successfully',
+            token: access_token,
+            data: savedUser
+        })
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             status: 'err',
             message: 'Something went wrong',
             error: error

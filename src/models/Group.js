@@ -59,6 +59,13 @@ const groupSchema = new mongoose.Schema({
     location: {
         type: Object
     },
+    pendingPost: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post"
+        }],
+        default:[]
+    }
 },
     { timestamps: true }
 );
