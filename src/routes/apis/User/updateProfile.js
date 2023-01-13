@@ -6,7 +6,17 @@ const hash = new HashService()
 
 router.put('/', async (req, res) => {
     const { id } = req.payload;
-    let { password } = req.body;
+    let { password, phone } = req.body;
+    const user = User.findOne({ _id: id })
+    
+    const checkPhoneExist = Number(user.phone) === Number(phone)
+
+    if (phone && checkPhoneExist) {
+        return res.json({
+            status: 'err',
+            message: 'Phone number already exists'
+        })
+    }
     if (password) {
         const hashPassword = hash.hashPassword(password);
         password = hashPassword
