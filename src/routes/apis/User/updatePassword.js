@@ -55,8 +55,7 @@ router.post('/forgot', async (req, res) => {
         );
         res.status(201).json({
             status: 'success',
-            message: 'Successfully updated',
-            data: updatePassword
+            message: 'Successfully updated'
         });
     } catch (error) {
         res.status(500).json({
