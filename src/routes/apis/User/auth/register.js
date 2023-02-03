@@ -19,14 +19,14 @@ router.post('/registration', async (req, res) => {
     if (user) {
         return res.json({
             status: 'err',
-            message: 'User already exists'
+            message: 'Phone/email already exists'
         })
     }
     const user_phone = await User.findOne({ phone });
     if (user_phone) {
         return res.json({
             status: 'err',
-            message: 'User already exists'
+            message: 'Phone/email already exists'
         })
     }
     try {
