@@ -41,7 +41,7 @@ router.post('/create', async (req, res) => {
             })
         }
     }
-})
+});
 
 
 // creating post for group
