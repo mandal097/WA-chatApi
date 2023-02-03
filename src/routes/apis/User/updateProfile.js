@@ -7,11 +7,9 @@ const hash = new HashService()
 router.put('/', async (req, res) => {
     const { id } = req.payload;
     let { phone } = req.body;
-    const user = await User.findOne({ _id: id })
+    const phoneExist = await User.findOne({ phone: phone });
 
-    const checkPhoneExist = Number(user.phone) === Number(phone)
-
-    if (phone && checkPhoneExist) {
+    if (phoneExist) {
         return res.json({
             status: 'err',
             message: 'Phone number already exists'
@@ -24,13 +22,13 @@ router.put('/', async (req, res) => {
             { new: true }
         )
         const { password, ...others } = updatedUser._doc;
-        res.status(201).json({
+        return res.status(201).json({
             status: 'success',
             message: 'Updated successfully',
             data: others
         })
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             status: 'err',
             message: 'Something went wrong ='
         })

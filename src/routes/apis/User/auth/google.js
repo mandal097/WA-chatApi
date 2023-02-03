@@ -18,21 +18,22 @@ router.post('', async (req, res, next) => {
 
             const access_token = token.generateToken({ id: savedUser._id, email: email });
 
-            res.status(201).json({
+            return res.status(201).json({
                 status: 'success',
                 msg: 'Logged in Successfully',
                 token: access_token,
                 user: savedUser._doc
             })
-        } else {
-            const access_token = token.generateToken({ id: user._id, email: email });
-            res.status(201).json({
-                status: 'success',
-                msg: 'Successfully Logged In',
-                token: access_token,
-                user: user._doc
-            })
         }
+        
+        const access_token = token.generateToken({ id: user._id, email: email });
+        return res.status(201).json({
+            status: 'success',
+            msg: 'Successfully Logged In',
+            token: access_token,
+            user: user._doc
+        })
+
     } catch (error) {
         res.status(500).json({
             status: 'err',
