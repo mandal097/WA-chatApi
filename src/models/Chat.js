@@ -9,10 +9,6 @@ const chatSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    info: {
-        type: String,
-        default: ''
-    },
     users: [
         {
             type: mongoose.Schema.Types.ObjectId,
