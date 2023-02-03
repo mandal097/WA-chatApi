@@ -13,6 +13,7 @@ const getGroupRequests = require('./getGroupRequests');
 const handlingAdminInvitations = require('./handleAdminInvitations');
 const handlingMembersInvitations = require('./handleMembersInvitations');
 const leaveGroup = require('./leaveGroup');
+const commonFriends = require('./getCommonFriends');
 
 
 
@@ -27,6 +28,7 @@ router.use('/groups', auth, searchedGroups)  //searching group by group name
 router.use('/groups', auth, getGroup)  //getting group by id
 router.use('/groups', auth, getAllGroups)  //getting group by id
 router.use('/groups', auth, groupMembers)  //list of group members
+router.use('/groups', auth, commonFriends)  //list of common friends in a group
 router.use('/joined-groups', auth, getJoinedGroups)  //getting group in which a logged in user is a member or joined
 
 module.exports = router;
