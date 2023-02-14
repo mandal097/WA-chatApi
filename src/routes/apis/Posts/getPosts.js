@@ -111,6 +111,36 @@ router.get('/group-posts/:groupId', async (req, res) => {
 })
 
 
+// get all group posts
+
+router.get('/all-group-posts', async (req, res) => {
+    try {
+        const post = await Post.find({ isGroupPost: true, isPrivate: "public" , visibility:"visible" })
+            .populate('userId', 'name profilePic')
+            .populate('tags', 'name profilePic')
+            .sort({ createdAt: -1 })
+        if (!post) {
+            return res.json({
+                status: 'err',
+                message: 'Post not found'
+            })
+        } else {
+            return res.json({
+                status: 'success',
+                message: 'Successfully get posts',
+                data: post
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            status: 'err',
+            message: 'Something went wrong'
+        })
+    }
+
+})
+
+
 
 // getting all posts maybe random posts , will work on this
 
