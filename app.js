@@ -29,7 +29,7 @@ const io = require('socket.io')(server, {
 
 app.use(cors({
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
+        methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 app.use(helmet());
 app.use(morgan('dev'));
